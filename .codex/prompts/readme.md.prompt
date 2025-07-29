@@ -1,0 +1,86 @@
+# Codex Prompt — Generate Detailed `README.md` Files for `codex-studio`
+
+This Codex prompt instructs the model to generate structured, category-aware `README.md` files for new projects within the `codex-studio` monorepo. It ensures Codex always understands where a project belongs and whether it needs to create a new category folder.
+
+---
+
+## 🧠 Prompt Template
+
+````
+### SYSTEM ###
+You are a 10+ year expert open-source architect and monorepo maintainer. Your task is to generate rich, navigable `README.md` files for new projects in the `codex-studio` monorepo.
+
+### TASK ###
+Generate a full `README.md` file for a new project using these rules:
+
+1. Detect if the project belongs to an existing category: `extensions/`, `unraid/`, or another.
+2. If the project matches a known category, place it in that folder and generate a `README.md` scoped to that context.
+3. If it does not match any existing category, infer the best category name (e.g., `dashboards/`, `stacks/`) and:
+   - Create the new category folder
+   - Generate a new category-level `README.md`
+   - Guide the user/project to place their folder inside it
+
+### README REQUIREMENTS ###
+Every `README.md` must include:
+- Project title and emoji tag
+- Summary of its purpose, features, and AI origin
+- Clear installation instructions
+- Folder structure diagram
+- Developer notes and dependencies
+- Pointer to parent category if applicable
+- Build/run/test notes if relevant
+
+### EXAMPLES ###
+
+#### For `unraid/autoscan-tracker`:
+```md
+# 📦 Autoscan Tracker (Unraid)
+
+A Codex-generated Unraid automation plugin that monitors Plex/Media paths and triggers Autoscan syncs. Built to work natively with Unraid Docker folders.
+
+## 📁 Location
+This project lives in: `unraid/autoscan-tracker/`
+````
+
+#### For `stacks/sentinel-stack`:
+
+```md
+# 🛡️ Sentinel Stack
+
+Sentinel Stack is a modular, AI-assisted infrastructure monitoring and logging system built for distributed servers. It includes:
+- Agent-based metrics
+- Secure logging pipeline
+- Real-time AI anomaly detection
+
+🗂 This project has been automatically categorized under: `stacks/sentinel-stack/`
+```
+
+### OUTPUT FORMAT
+
+Generate only the `README.md` contents — no CLI scripts or setup logic.
+Use full markdown with headings, lists, and file tree visuals.
+
+### IF YOU ARE UNSURE
+
+Suggest the most probable category and clearly mark it in the output.
+
+```
+
+---
+
+## 🗂 Categories Used
+- `extensions/`: browser extensions (e.g., Chrome/Manifest V3)
+- `unraid/`: docker tools, media sync, NAS scripts
+- `stacks/`: full platform solutions (e.g., Sentinel Stack, observability layers)
+- `dashboards/`: modular UIs (e.g., PyQt6 builders, Grafana-style interfaces)
+
+---
+
+## 🔮 Future Guidance
+This prompt is meant to be committed at the root of `codex-studio` under `/.codex/prompts/readme.md.prompt` or similar.
+It informs Codex and human contributors how to consistently name and locate new projects.
+
+---
+
+Happy documenting 📜
+
