@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>readarr-MAC</Name>
+  <Repository>readarr-mac:latest</Repository>
+  <Registry/>
+  <Network>macgyver-network-MAC</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://readarr.com/</Support>
+  <Project>https://github.com/Readarr/Readarr</Project>
+  <Overview>Readarr - Book Management (MacGyver Stack)</Overview>
+  <Category>MediaApp:Books</Category>
+  <WebUI>http://[IP]:[PORT:8787]</WebUI>
+  <Icon>https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/readarr.svg</Icon>
+  <ExtraParams>--restart=unless-stopped</ExtraParams>
+  <Description>Readarr book management - custom built for MacGyver Stack</Description>
+  <Networking>
+    <Mode>macgyver-network-MAC</Mode>
+    <Publish>
+      <Port>
+        <HostPort>8787</HostPort>
+        <ContainerPort>8787</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/readarr-MAC</HostDir>
+      <ContainerDir>/config</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+    <Volume>
+      <HostDir>/mnt/user/media/books</HostDir>
+      <ContainerDir>/books</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+    <Volume>
+      <HostDir>/mnt/user/downloads</HostDir>
+      <ContainerDir>/downloads</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment>
+    <Variable>
+      <Value>99</Value>
+      <Name>PUID</Name>
+    </Variable>
+    <Variable>
+      <Value>100</Value>
+      <Name>PGID</Name>
+    </Variable>
+    <Variable>
+      <Value>America/Chicago</Value>
+      <Name>TZ</Name>
+    </Variable>
+  </Environment>
+  <Config Name="WebUI Port" Target="8787" Default="8787" Mode="tcp" Description="Readarr Web Interface" Type="Port" Display="always" Required="true" Mask="false">8787</Config>
+  <Config Name="Appdata" Target="/config" Default="/mnt/user/appdata/readarr-MAC" Mode="rw" Description="Readarr config directory" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/readarr-MAC</Config>
+</Container>

@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>vault-MAC</Name>
+  <Repository>vault-mac:latest</Repository>
+  <Registry/>
+  <Network>macgyver-network-MAC</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://www.vaultproject.io/</Support>
+  <Project>https://github.com/hashicorp/vault</Project>
+  <Overview>HashiCorp Vault - Secrets Management (MacGyver Stack)</Overview>
+  <Category>Tools:</Category>
+  <WebUI>http://[IP]:[PORT:8200]</WebUI>
+  <Icon>https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/vault.svg</Icon>
+  <ExtraParams>--restart=unless-stopped</ExtraParams>
+  <Description>HashiCorp Vault for centralized secrets management - custom built for MacGyver Stack</Description>
+  <Networking>
+    <Mode>macgyver-network-MAC</Mode>
+    <Publish>
+      <Port>
+        <HostPort>8200</HostPort>
+        <ContainerPort>8200</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/vault-MAC</HostDir>
+      <ContainerDir>/vault/data</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment>
+    <Variable>
+      <Value>99</Value>
+      <Name>PUID</Name>
+    </Variable>
+    <Variable>
+      <Value>100</Value>
+      <Name>PGID</Name>
+    </Variable>
+    <Variable>
+      <Value>America/Chicago</Value>
+      <Name>TZ</Name>
+    </Variable>
+    <Variable>
+      <Value>myroot</Value>
+      <Name>VAULT_ROOT_TOKEN</Name>
+    </Variable>
+  </Environment>
+  <Config Name="WebUI Port" Target="8200" Default="8200" Mode="tcp" Description="Vault Web Interface" Type="Port" Display="always" Required="true" Mask="false">8200</Config>
+  <Config Name="Appdata" Target="/vault/data" Default="/mnt/user/appdata/vault-MAC" Mode="rw" Description="Vault data directory" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/vault-MAC</Config>
+</Container>

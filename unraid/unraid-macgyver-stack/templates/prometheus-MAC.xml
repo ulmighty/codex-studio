@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>prometheus-MAC</Name>
+  <Repository>prometheus-mac:latest</Repository>
+  <Registry/>
+  <Network>macgyver-network-MAC</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://prometheus.io/</Support>
+  <Project>https://github.com/prometheus/prometheus</Project>
+  <Overview>Prometheus - Monitoring System (MacGyver Stack)</Overview>
+  <Category>Tools:</Category>
+  <WebUI>http://[IP]:[PORT:9090]</WebUI>
+  <Icon>https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/prometheus.svg</Icon>
+  <ExtraParams>--restart=unless-stopped</ExtraParams>
+  <Description>Prometheus monitoring system - custom built for MacGyver Stack</Description>
+  <Networking>
+    <Mode>macgyver-network-MAC</Mode>
+    <Publish>
+      <Port>
+        <HostPort>9090</HostPort>
+        <ContainerPort>9090</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/prometheus-MAC</HostDir>
+      <ContainerDir>/etc/prometheus</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+    <Volume>
+      <HostDir>/mnt/user/appdata/prometheus-MAC/data</HostDir>
+      <ContainerDir>/prometheus</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment>
+    <Variable>
+      <Value>99</Value>
+      <Name>PUID</Name>
+    </Variable>
+    <Variable>
+      <Value>100</Value>
+      <Name>PGID</Name>
+    </Variable>
+    <Variable>
+      <Value>America/Chicago</Value>
+      <Name>TZ</Name>
+    </Variable>
+  </Environment>
+  <Config Name="WebUI Port" Target="9090" Default="9090" Mode="tcp" Description="Prometheus Web Interface" Type="Port" Display="always" Required="true" Mask="false">9090</Config>
+  <Config Name="Appdata" Target="/etc/prometheus" Default="/mnt/user/appdata/prometheus-MAC" Mode="rw" Description="Prometheus config directory" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/prometheus-MAC</Config>
+</Container>

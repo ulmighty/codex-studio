@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>readarr-MAC</Name>
+  <Repository>readarr-mac:latest</Repository>
+  <Registry/>
+  <Network>container:gluetun-MAC</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/unraid-macgyver-stack</Support>
+  <Project>https://github.com/unraid-macgyver-stack</Project>
+  <Overview>Readarr - Part of Unraid MacGyver Stack</Overview>
+  <Category>MediaApp:Other</Category>
+  <WebUI>http://[IP]:[PORT:8787]</WebUI>
+  <TemplateURL/>
+  <Icon>https://raw.githubusercontent.com/linuxserver/docker-templates/master/linuxserver.io/img/readarr-logo.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>$(date +%s)</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+  <Config Name="Config" Target="/config" Default="/mnt/user/appdata/readarr-MAC/config" Mode="rw" Description="Configuration" Type="Path" Display="always" Required="true" Mask="false">$APPDATA_PATH/readarr-MAC/config</Config>
+  <Config Name="Data" Target="/data" Default="/mnt/user/appdata/readarr-MAC/data" Mode="rw" Description="Application data" Type="Path" Display="always" Required="true" Mask="false">$APPDATA_PATH/readarr-MAC/data</Config>
+  <Config Name="Media" Target="/media" Default="/mnt/user/data" Mode="rw" Description="Media storage" Type="Path" Display="always" Required="true" Mask="false">$DATA_PATH</Config>
+  <Config Name="PUID" Target="PUID" Default="99" Mode="" Description="User ID" Type="Variable" Display="advanced" Required="false" Mask="false">$PUID</Config>
+  <Config Name="PGID" Target="PGID" Default="100" Mode="" Description="Group ID" Type="Variable" Display="advanced" Required="false" Mask="false">$PGID</Config>
+  <Config Name="Timezone" Target="TZ" Default="America/New_York" Mode="" Description="Timezone" Type="Variable" Display="advanced" Required="false" Mask="false">$TIMEZONE</Config>
+</Container>

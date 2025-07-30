@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>influxdb-MAC</Name>
+  <Repository>influxdb-mac:latest</Repository>
+  <Registry/>
+  <Network>macgyver-network-MAC</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://www.influxdata.com/</Support>
+  <Project>https://github.com/influxdata/influxdb</Project>
+  <Overview>InfluxDB - Time Series Database (MacGyver Stack)</Overview>
+  <Category>Tools:</Category>
+  <WebUI>http://[IP]:[PORT:8086]</WebUI>
+  <Icon>https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/influxdb.svg</Icon>
+  <ExtraParams>--restart=unless-stopped</ExtraParams>
+  <Description>InfluxDB time series database - custom built for MacGyver Stack</Description>
+  <Networking>
+    <Mode>macgyver-network-MAC</Mode>
+    <Publish>
+      <Port>
+        <HostPort>8086</HostPort>
+        <ContainerPort>8086</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/influxdb-MAC</HostDir>
+      <ContainerDir>/var/lib/influxdb2</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment>
+    <Variable>
+      <Value>99</Value>
+      <Name>PUID</Name>
+    </Variable>
+    <Variable>
+      <Value>100</Value>
+      <Name>PGID</Name>
+    </Variable>
+    <Variable>
+      <Value>America/Chicago</Value>
+      <Name>TZ</Name>
+    </Variable>
+  </Environment>
+  <Config Name="WebUI Port" Target="8086" Default="8086" Mode="tcp" Description="InfluxDB Web Interface" Type="Port" Display="always" Required="true" Mask="false">8086</Config>
+  <Config Name="Appdata" Target="/var/lib/influxdb2" Default="/mnt/user/appdata/influxdb-MAC" Mode="rw" Description="InfluxDB data directory" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/influxdb-MAC</Config>
+</Container>

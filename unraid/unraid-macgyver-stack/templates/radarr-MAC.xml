@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>radarr-MAC</Name>
+  <Repository>radarr-mac:latest</Repository>
+  <Registry/>
+  <Network>macgyver-network-MAC</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://radarr.video/</Support>
+  <Project>https://github.com/Radarr/Radarr</Project>
+  <Overview>Radarr - Movie Management (MacGyver Stack)</Overview>
+  <Category>MediaApp:Video</Category>
+  <WebUI>http://[IP]:[PORT:7878]</WebUI>
+  <Icon>https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/radarr.svg</Icon>
+  <ExtraParams>--restart=unless-stopped</ExtraParams>
+  <Description>Radarr movie management and automation - custom built for MacGyver Stack</Description>
+  <Networking>
+    <Mode>macgyver-network-MAC</Mode>
+    <Publish>
+      <Port>
+        <HostPort>7878</HostPort>
+        <ContainerPort>7878</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/radarr-MAC</HostDir>
+      <ContainerDir>/config</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+    <Volume>
+      <HostDir>/mnt/user/media/movies</HostDir>
+      <ContainerDir>/movies</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+    <Volume>
+      <HostDir>/mnt/user/downloads</HostDir>
+      <ContainerDir>/downloads</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment>
+    <Variable>
+      <Value>99</Value>
+      <Name>PUID</Name>
+    </Variable>
+    <Variable>
+      <Value>100</Value>
+      <Name>PGID</Name>
+    </Variable>
+    <Variable>
+      <Value>America/Chicago</Value>
+      <Name>TZ</Name>
+    </Variable>
+  </Environment>
+  <Config Name="WebUI Port" Target="7878" Default="7878" Mode="tcp" Description="Radarr WebUI" Type="Port" Display="always" Required="true" Mask="false">7878</Config>
+  <Config Name="Appdata" Target="/config" Default="/mnt/user/appdata/radarr-MAC" Mode="rw" Description="Radarr configuration" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/radarr-MAC</Config>
+  <Config Name="Movies" Target="/movies" Default="/mnt/user/media/movies" Mode="rw" Description="Movies directory" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/media/movies</Config>
+  <Config Name="Downloads" Target="/downloads" Default="/mnt/user/downloads" Mode="rw" Description="Downloads directory" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/downloads</Config>
+</Container>

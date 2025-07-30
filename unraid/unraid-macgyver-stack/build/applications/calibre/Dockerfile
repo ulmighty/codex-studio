@@ -1,0 +1,36 @@
+# ============================================================================
+# CALIBRE - CUSTOM BUILD
+# ============================================================================
+# Base: debian:bullseye-slim
+# Description: Ebook management application
+# ============================================================================
+
+FROM debian:bullseye-slim
+
+# Unraid user/group
+ARG PUID=99
+ARG PGID=100
+
+# Install dependencies based on base image
+RUN if [ -f /etc/alpine-release ]; then         apk add --no-cache             ca-certificates             tzdata             && (addgroup -g ${PGID} calibre || true)             && adduser -u ${PUID} -G users -D -H calibre;     elif [ -f /etc/debian_version ]; then         apt-get update && apt-get install -y --no-install-recommends             ca-certificates             tzdata             && rm -rf /var/lib/apt/lists/*             && (groupadd -g ${PGID} calibre || true)             && useradd -u ${PUID} -g users -d /config -s /bin/bash calibre;     fi
+
+# Create necessary directories
+RUN mkdir -p /config /data /app     && chown -R calibre:users /config /data /app
+
+# Switch to non-root user
+USER calibre
+
+# Expose port
+EXPOSE 8082
+
+# Volume
+VOLUME ["/config", "/data"]
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=30s --retries=3     CMD curl -f http://localhost:8082/ || exit 1
+
+# Command (placeholder - needs actual app binary/script)
+CMD ["sh", "-c", "echo 'Application calibre needs to be properly configured' && sleep infinity"]
+
+# Labels
+LABEL maintainer="Atlas - Unraid MacGyver Stack"       org.opencontainers.image.title="calibre-MAC"       org.opencontainers.image.description="Ebook management application"

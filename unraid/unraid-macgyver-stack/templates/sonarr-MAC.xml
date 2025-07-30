@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>sonarr-MAC</Name>
+  <Repository>sonarr-mac:latest</Repository>
+  <Registry/>
+  <Network>macgyver-network-MAC</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://sonarr.tv/</Support>
+  <Project>https://github.com/Sonarr/Sonarr</Project>
+  <Overview>Sonarr - TV Series Management (MacGyver Stack)</Overview>
+  <Category>MediaApp:Video</Category>
+  <WebUI>http://[IP]:[PORT:8989]</WebUI>
+  <Icon>https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/sonarr.svg</Icon>
+  <ExtraParams>--restart=unless-stopped</ExtraParams>
+  <Description>Sonarr TV series management and automation - custom built for MacGyver Stack</Description>
+  <Networking>
+    <Mode>macgyver-network-MAC</Mode>
+    <Publish>
+      <Port>
+        <HostPort>8989</HostPort>
+        <ContainerPort>8989</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/sonarr-MAC</HostDir>
+      <ContainerDir>/config</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+    <Volume>
+      <HostDir>/mnt/user/media/tv</HostDir>
+      <ContainerDir>/tv</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+    <Volume>
+      <HostDir>/mnt/user/downloads</HostDir>
+      <ContainerDir>/downloads</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment>
+    <Variable>
+      <Value>99</Value>
+      <Name>PUID</Name>
+    </Variable>
+    <Variable>
+      <Value>100</Value>
+      <Name>PGID</Name>
+    </Variable>
+    <Variable>
+      <Value>America/Chicago</Value>
+      <Name>TZ</Name>
+    </Variable>
+  </Environment>
+  <Config Name="WebUI Port" Target="8989" Default="8989" Mode="tcp" Description="Sonarr WebUI" Type="Port" Display="always" Required="true" Mask="false">8989</Config>
+  <Config Name="Appdata" Target="/config" Default="/mnt/user/appdata/sonarr-MAC" Mode="rw" Description="Sonarr configuration" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/sonarr-MAC</Config>
+  <Config Name="TV Shows" Target="/tv" Default="/mnt/user/media/tv" Mode="rw" Description="TV Shows directory" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/media/tv</Config>
+  <Config Name="Downloads" Target="/downloads" Default="/mnt/user/downloads" Mode="rw" Description="Downloads directory" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/downloads</Config>
+</Container>

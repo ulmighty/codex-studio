@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>redis-MAC</Name>
+  <Repository>redis-mac:latest</Repository>
+  <Registry/>
+  <Network>macgyver-network-MAC</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://redis.io/</Support>
+  <Project>https://github.com/redis/redis</Project>
+  <Overview>Redis - In-Memory Database (MacGyver Stack)</Overview>
+  <Category>Tools:</Category>
+  <WebUI/>
+  <Icon>https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/redis.svg</Icon>
+  <ExtraParams>--restart=unless-stopped</ExtraParams>
+  <Description>Redis in-memory data store - custom built for MacGyver Stack</Description>
+  <Networking>
+    <Mode>macgyver-network-MAC</Mode>
+    <Publish>
+      <Port>
+        <HostPort>6379</HostPort>
+        <ContainerPort>6379</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/redis-MAC</HostDir>
+      <ContainerDir>/data</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment>
+    <Variable>
+      <Value>99</Value>
+      <Name>PUID</Name>
+    </Variable>
+    <Variable>
+      <Value>100</Value>
+      <Name>PGID</Name>
+    </Variable>
+    <Variable>
+      <Value>America/Chicago</Value>
+      <Name>TZ</Name>
+    </Variable>
+  </Environment>
+  <Config Name="Redis Port" Target="6379" Default="6379" Mode="tcp" Description="Redis Database Port" Type="Port" Display="always" Required="true" Mask="false">6379</Config>
+  <Config Name="Appdata" Target="/data" Default="/mnt/user/appdata/redis-MAC" Mode="rw" Description="Redis data directory" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/redis-MAC</Config>
+</Container>

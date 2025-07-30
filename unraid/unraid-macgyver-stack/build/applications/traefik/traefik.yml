@@ -1,0 +1,82 @@
+# ============================================================================
+# TRAEFIK STATIC CONFIGURATION
+# ============================================================================
+
+# API and Dashboard
+api:
+  dashboard: true
+  debug: false
+
+# Entry Points
+entryPoints:
+  web:
+    address: ":80"
+    http:
+      redirections:
+        entrypoint:
+          to: websecure
+          scheme: https
+          permanent: true
+  
+  websecure:
+    address: ":443"
+    http:
+      tls: true
+      middlewares:
+        - security-headers@file
+  
+  traefik:
+    address: ":8080"
+
+# Docker Provider
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false
+    network: macgyver-network-MAC
+    watch: true
+  
+  file:
+    directory: /etc/traefik/dynamic
+    watch: true
+
+# Logging
+log:
+  level: INFO
+  format: json
+  filePath: /var/log/traefik/traefik.log
+
+accessLog:
+  filePath: /var/log/traefik/access.log
+  format: json
+  bufferingSize: 100
+  filters:
+    statusCodes:
+      - "200-299"
+      - "400-499"
+      - "500-599"
+
+# Metrics
+metrics:
+  prometheus:
+    addEntryPointsLabels: true
+    addRoutersLabels: true
+    addServicesLabels: true
+    buckets:
+      - 0.1
+      - 0.3
+      - 1.2
+      - 5.0
+
+# Ping (Health Check)
+ping:
+  entryPoint: traefik
+
+# Certificate Resolvers
+certificatesResolvers:
+  default:
+    acme:
+      email: admin@ulmighty.local
+      storage: /certificates/acme.json
+      tlsChallenge: true
+      caServer: https://acme-staging-v02.api.letsencrypt.org/directory  # Use staging for testing

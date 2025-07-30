@@ -1,0 +1,75 @@
+# ============================================================================
+# TRAEFIK DYNAMIC CONFIGURATION - MIDDLEWARES
+# ============================================================================
+
+http:
+  middlewares:
+    # Security headers
+    security-headers:
+      headers:
+        accessControlAllowMethods:
+          - GET
+          - OPTIONS
+          - PUT
+          - POST
+          - DELETE
+        accessControlAllowHeaders:
+          - "*"
+        accessControlAllowOriginList:
+          - "*"
+        accessControlMaxAge: 100
+        addVaryHeader: true
+        browserXssFilter: true
+        contentTypeNosniff: true
+        forceSTSHeader: true
+        frameDeny: true
+        stsIncludeSubdomains: true
+        stsPreload: true
+        stsSeconds: 31536000
+        customFrameOptionsValue: "SAMEORIGIN"
+        referrerPolicy: "strict-origin-when-cross-origin"
+        permissionsPolicy: "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+        customResponseHeaders:
+          X-Robots-Tag: "none,noarchive,nosnippet,notranslate,noimageindex"
+          server: ""
+    
+    # Rate limiting
+    rate-limit:
+      rateLimit:
+        average: 100
+        burst: 50
+        period: 1m
+    
+    # Basic auth
+    auth-basic:
+      basicAuth:
+        users:
+          - "admin:$2y$10$YourHashedPasswordHere"  # Will be replaced by script
+        removeHeader: true
+    
+    # Redirect middleware
+    redirect-to-https:
+      redirectScheme:
+        scheme: https
+        permanent: true
+    
+    # Compress responses
+    compress:
+      compress:
+        excludedContentTypes:
+          - text/event-stream
+    
+    # Chain for APIs
+    api-chain:
+      chain:
+        middlewares:
+          - rate-limit
+          - security-headers
+          - compress
+    
+    # Chain for web UIs
+    webui-chain:
+      chain:
+        middlewares:
+          - security-headers
+          - compress

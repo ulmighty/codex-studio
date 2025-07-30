@@ -1,0 +1,11 @@
+tls:
+  certificates:
+    - certFile: /certs/_wildcard.ulmighty.local.pem
+      keyFile: /certs/_wildcard.ulmighty.local-key.pem
+      stores:
+        - default
+  stores:
+    default:
+      defaultCertificate:
+        certFile: /certs/_wildcard.ulmighty.local.pem
+        keyFile: /certs/_wildcard.ulmighty.local-key.pem

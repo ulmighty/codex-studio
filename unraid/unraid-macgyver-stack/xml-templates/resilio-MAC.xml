@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>resilio-MAC</Name>
+  <Repository>resilio-mac:latest</Repository>
+  <Registry/>
+  <Network>macgyver-network-MAC</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/unraid-macgyver-stack</Support>
+  <Project>https://github.com/unraid-macgyver-stack</Project>
+  <Overview>Resilio - Part of Unraid MacGyver Stack</Overview>
+  <Category>MediaApp:Other</Category>
+  <WebUI>http://[IP]:[PORT:8889]</WebUI>
+  <TemplateURL/>
+  <Icon>https://www.resilio.com/wp-content/uploads/2019/05/resilio-sync-logo.png</Icon>
+  <ExtraParams/>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled>$(date +%s)</DateInstalled>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+  <Config Name="WebUI Port" Target="8889" Default="8889" Mode="tcp" Description="WebUI Port" Type="Port" Display="always" Required="true" Mask="false">8889</Config>
+  <Config Name="Config" Target="/config" Default="/mnt/user/appdata/resilio-MAC/config" Mode="rw" Description="Configuration" Type="Path" Display="always" Required="true" Mask="false">$APPDATA_PATH/resilio-MAC/config</Config>
+  <Config Name="Data" Target="/data" Default="/mnt/user/appdata/resilio-MAC/data" Mode="rw" Description="Application data" Type="Path" Display="always" Required="true" Mask="false">$APPDATA_PATH/resilio-MAC/data</Config>
+  <Config Name="Media" Target="/media" Default="/mnt/user/data" Mode="rw" Description="Media storage" Type="Path" Display="always" Required="true" Mask="false">$DATA_PATH</Config>
+  <Config Name="PUID" Target="PUID" Default="99" Mode="" Description="User ID" Type="Variable" Display="advanced" Required="false" Mask="false">$PUID</Config>
+  <Config Name="PGID" Target="PGID" Default="100" Mode="" Description="Group ID" Type="Variable" Display="advanced" Required="false" Mask="false">$PGID</Config>
+  <Config Name="Timezone" Target="TZ" Default="America/New_York" Mode="" Description="Timezone" Type="Variable" Display="advanced" Required="false" Mask="false">$TIMEZONE</Config>
+</Container>

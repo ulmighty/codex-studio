@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>gitea-MAC</Name>
+  <Repository>gitea-mac:latest</Repository>
+  <Registry/>
+  <Network>macgyver-network-MAC</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://gitea.io/</Support>
+  <Project>https://github.com/go-gitea/gitea</Project>
+  <Overview>Gitea - Git Repository (MacGyver Stack)</Overview>
+  <Category>Tools:</Category>
+  <WebUI>http://[IP]:[PORT:3000]</WebUI>
+  <Icon>https://raw.githubusercontent.com/walkxcode/dashboard-icons/main/svg/gitea.svg</Icon>
+  <ExtraParams>--restart=unless-stopped</ExtraParams>
+  <Description>Gitea git repository server - custom built for MacGyver Stack</Description>
+  <Networking>
+    <Mode>macgyver-network-MAC</Mode>
+    <Publish>
+      <Port>
+        <HostPort>3000</HostPort>
+        <ContainerPort>3000</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+      <Port>
+        <HostPort>2222</HostPort>
+        <ContainerPort>22</ContainerPort>
+        <Protocol>tcp</Protocol>
+      </Port>
+    </Publish>
+  </Networking>
+  <Data>
+    <Volume>
+      <HostDir>/mnt/user/appdata/gitea-MAC</HostDir>
+      <ContainerDir>/data</ContainerDir>
+      <Mode>rw</Mode>
+    </Volume>
+  </Data>
+  <Environment>
+    <Variable>
+      <Value>99</Value>
+      <Name>PUID</Name>
+    </Variable>
+    <Variable>
+      <Value>100</Value>
+      <Name>PGID</Name>
+    </Variable>
+    <Variable>
+      <Value>America/Chicago</Value>
+      <Name>TZ</Name>
+    </Variable>
+  </Environment>
+  <Config Name="WebUI Port" Target="3000" Default="3000" Mode="tcp" Description="Gitea Web Interface" Type="Port" Display="always" Required="true" Mask="false">3000</Config>
+  <Config Name="SSH Port" Target="22" Default="2222" Mode="tcp" Description="Gitea SSH Port" Type="Port" Display="always" Required="true" Mask="false">2222</Config>
+  <Config Name="Appdata" Target="/data" Default="/mnt/user/appdata/gitea-MAC" Mode="rw" Description="Gitea data directory" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/gitea-MAC</Config>
+</Container>
