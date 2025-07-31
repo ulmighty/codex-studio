@@ -1,0 +1,23 @@
+[
+  {
+    "id": "chatgpt",
+    "name": "ChatGPT",
+    "icon": "https://chatgpt.com/favicon.ico",
+    "url": "https://chatgpt.com",
+    "partition": "persist:chatgpt"
+  },
+  {
+    "id": "meta-ai",
+    "name": "Meta AI",
+    "icon": "https://www.meta.ai/favicon.ico",
+    "url": "https://www.meta.ai",
+    "partition": "persist:meta-ai"
+  },
+  {
+    "id": "deepseek",
+    "name": "DeepSeek",
+    "icon": "https://chat.deepseek.com/favicon.ico",
+    "url": "https://chat.deepseek.com",
+    "partition": "persist:deepseek"
+  }
+]
