@@ -1,0 +1,8 @@
+pyyaml
+pyqt6
+openai
+pyvirtualcam
+pvporcupine
+pywin32 ; platform_system == 'Windows'
+mediapipe
+numpy
