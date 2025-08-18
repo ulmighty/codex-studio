@@ -1,0 +1,23 @@
+providers:
+  bodytracking: kinect_v2
+  voice: whisper_local
+  wakeword: porcupine
+  noise: rnnoise_local
+  virtualcam: pyvirtualcam_obs
+  gestures: mediapipe_task
+  gaze: kinect_headpose
+  appaware: win32_foreground
+  input: win_mousekbd
+llm:
+  model: gpt-4
+profiles:
+  active: default_profile
+thresholds:
+  smoothing: 3.0
+  z_push_mm: 0.4
+  z_pull_mm: 0.6
+  dwell_ms: 500
+  zen_mode_seconds: 60
+privacy:
+  voice_log_retention_days: 7
+  pii_redaction: true
