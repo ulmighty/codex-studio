@@ -1,0 +1,27 @@
+{
+  "name": "nebula-dom-cartographer",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "test": "jest",
+    "e2e": "playwright test",
+    "lint": "eslint .",
+    "bench": "node --loader ts-node/esm benchmarks/cpu-scale.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.37.0",
+    "@types/jest": "^29.5.4",
+    "eslint": "^8.0.0",
+    "jest": "^29.7.0",
+    "jsdom": "^22.1.0",
+    "prettier": "^3.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.0",
+    "vite": "^4.0.0",
+    "@types/jsdom": "^21.1.1"
+  }
+}
