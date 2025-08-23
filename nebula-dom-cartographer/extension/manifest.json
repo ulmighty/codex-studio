@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Nebula DOM Cartographer",
+  "version": "0.1.0",
+  "description": "GPU-accelerated DOM analysis and selector generation",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "background": { "service_worker": "sw/service-worker.js" },
+  "action": { "default_popup": "ui/popup/index.html" },
+  "options_page": "ui/options/index.html",
+  "host_permissions": ["<all_urls>"],
+  "web_accessible_resources": [
+    {
+      "resources": ["export/templates/*.hbs"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

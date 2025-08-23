@@ -1,0 +1,6 @@
+{
+  // Example site configuration
+  "example.com": {
+    "selectors": []
+  }
+}
