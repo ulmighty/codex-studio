@@ -1,0 +1,13 @@
+{
+  "name": "rendering",
+  "version": "1.0.0",
+  "description": "Rendering service",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"No tests\" && exit 0"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

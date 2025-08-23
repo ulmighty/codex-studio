@@ -1,0 +1,64 @@
+# Development tasks
+setup:
+    # Clone the repository and set up environment
+    @echo "Setting up Nexus Development Hub..."
+    cp .env.example .env
+    just deps
+    just build
+
+deps:
+    # Install dependencies for all services
+    @echo "Installing dependencies..."
+    cd services/frontend && npm ci
+    cd services/gateway && npm ci
+    cd services/rendering && npm ci
+    cd services/realtime && npm ci
+    cd services/projects && pip install -r requirements.txt
+    cd services/ai && pip install -r requirements.txt
+
+build:
+    # Build all services
+    @echo "Building services..."
+    docker-compose build
+
+start:
+    # Start all services
+    @echo "Starting Nexus Development Hub..."
+    docker-compose up -d
+
+stop:
+    # Stop all services
+    @echo "Stopping Nexus Development Hub..."
+    docker-compose down
+
+logs:
+    # View logs
+    docker-compose logs -f
+
+test:
+    # Run tests
+    @echo "Running tests..."
+    cd services/frontend && npm test
+    cd services/gateway && npm test
+    cd services/projects && python -m pytest
+
+clean:
+    # Clean up Docker resources
+    @echo "Cleaning up..."
+    docker-compose down -v
+    docker system prune -f
+
+db-migrate:
+    # Run database migrations
+    @echo "Running database migrations..."
+    docker-compose exec projects python -m alembic upgrade head
+
+db-rollback:
+    # Rollback database migrations
+    @echo "Rolling back database migrations..."
+    docker-compose exec projects python -m alembic downgrade -1
+
+health:
+    # Check service health
+    @echo "Checking service health..."
+    docker-compose ps
