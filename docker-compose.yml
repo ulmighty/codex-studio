@@ -1,0 +1,9 @@
+services:
+  control-room:
+    build: ./control-room
+    ports:
+      - "3000:3000"
+    volumes:
+      - ${HOME}/NexusForge:/workspace
+    environment:
+      - NODE_ENV=production
