@@ -1,0 +1,32 @@
+{
+  "name": "nexusforge-control-room",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "next": "*",
+    "react": "*",
+    "react-dom": "*",
+    "tailwindcss": "*",
+    "postcss": "*",
+    "autoprefixer": "*"
+  },
+  "devDependencies": {
+    "typescript": "*",
+    "ts-node": "*",
+    "ts-jest": "*",
+    "jest": "*",
+    "@types/node": "*",
+    "@types/react": "*",
+    "@types/react-dom": "*",
+    "@types/jest": "*"
+  },
+  "jest": {
+    "transform": {"^.+\\.(t|j)sx?$": "ts-jest"},
+    "testEnvironment": "node"
+  }
+}
