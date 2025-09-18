@@ -1,0 +1,48 @@
+name: QC Arbiter Merge Queue
+
+on:
+  pull_request_target:
+    types:
+      - labeled
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  enqueue:
+    if: >-
+      github.event.label.name == 'qc:approved' &&
+      github.event.pull_request.state == 'open'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Queue PR for squash merge
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            const baseRef = context.payload.pull_request.base.ref;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            try {
+              await github.request('POST /repos/{owner}/{repo}/merge-queue/entries', {
+                owner,
+                repo,
+                pull_request_number: prNumber,
+                merge_method: 'squash',
+                branch: baseRef
+              });
+              core.summary.addHeading('Merge Queue Update');
+              core.summary.addRaw(`Queued PR #${prNumber} on branch ${baseRef} with squash merge.`);
+              await core.summary.write();
+            } catch (error) {
+              if (error.status === 422 || error.status === 409) {
+                core.warning(`Queue request for PR #${prNumber} could not be created: ${error.message}`);
+              } else {
+                throw error;
+              }
+            }
+      - name: Log queue status
+        run: |
+          echo "Merge queue requested for PR #${{ github.event.pull_request.number }} targeting ${{ github.event.pull_request.base.ref }}"
