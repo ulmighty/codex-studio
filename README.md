@@ -1,26 +1,24 @@
-# NexusForge Control Room
+# FaceTrace Orchestration
 
-Control Room provides a lightweight GUI to observe the NexusForge build
-pipeline and queue interventions.
+## Charter
+FaceTrace is an offline media-forensics stack that unifies vision, audio, indexing, and delivery surfaces under strict privacy, security, and determinism guardrails. This repository coordinates lane-specific workstreams that will deliver the full experience through sequential PRs managed by a merge queue.
 
-## Run
+## Getting Started
+1. Clone the repository and ensure you are on a feature branch (never push directly to `main`).
+2. Run `./scripts/verify-structure.sh` to confirm the orchestrator scaffolding is intact.
+3. Review lane briefs in `prompts/lanes/*/BRIEF.md` for scope, ownership, and CI expectations before starting any implementation work.
+4. Record lane deliverables in the corresponding `ARTIFACTS.md` file as you develop; these act as the source of truth for QC.
 
-```sh
-docker compose up --build
-```
+## Running Lane Prompts
+- Each lane executes independently and must submit its own PR using squash merge through the queue.
+- Lane PRs must stay within the file boundaries listed in their brief; cross-lane changes require explicit coordination noted in the merge plan.
+- Always honour offline requirements (no runtime downloads) and enforce privacy blur + transcription disclaimers described in the briefs.
 
-The container bind-mounts `~/NexusForge` to `/workspace` and listens on
-http://localhost:3000.
+## Merge Queue Workflow
+- Apply `qc:pending` when opening a PR. Once QC approval is granted and the label changes to `qc:approved`, the `QC Arbiter Merge Queue` workflow automatically enqueues the PR for a squash merge.
+- Ensure CI pipelines referenced in each brief are green before requesting queue placement.
+- If queue submission fails, review workflow logs and address outstanding checks before retrying.
 
-## Workspace
-
-The GUI reads from `/workspace/.nexusforge`:
-- `state.json` – build state
-- `run.log` – append-only log
-- `checklist.md` – acceptance checks
-- `patches/` – diff files
-- `policy.json` – DeepSeek policy
-- `commands/queue.jsonl` – command queue (append only)
-
-POSTing to `/api/commands` appends a JSON line to the command queue for an
-external orchestrator to handle.
+## Contact Points
+- QC Arbiter coordinates lane scheduling and approves merge queue entries.
+- Security reviews and performance benchmarking occur in dedicated lanes after core functionality lands, as defined in `prompts/merge-plan.md`.
