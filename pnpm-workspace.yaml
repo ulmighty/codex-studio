@@ -1,0 +1,6 @@
+packages:
+  - "control-room"
+  - "nebula-dom-cartographer"
+  - "chatgpt-shell"
+  - "projects/*/apps/*"
+  - "projects/*/packages/*"

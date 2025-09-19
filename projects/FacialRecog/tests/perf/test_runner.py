@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from perf.runner import BenchmarkKnobs, BenchmarkRunner
+from projects.FacialRecog.packages.perf.runner import BenchmarkKnobs, BenchmarkRunner
 
 
 def test_runner_returns_results():

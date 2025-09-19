@@ -418,7 +418,7 @@ def handle_serve(args: argparse.Namespace) -> int:
         console.print(f"[red]Uvicorn is not installed: {exc}[/]")
         return 1
 
-    app_path = args.app or "facetrace_cli.server:app"
+    app_path = args.app or "projects.FacialRecog.apps.facetrace_cli.server:app"
     console.print(
         f"[green]Starting uvicorn[/] [bold]{app_path}[/] on {args.host}:{args.port}"
     )
@@ -455,7 +455,7 @@ def build_parser() -> argparse.ArgumentParser:
     serve_parser.add_argument("--reload", action="store_true")
     serve_parser.add_argument(
         "--app",
-        default="facetrace_cli.server:app",
+        default="projects.FacialRecog.apps.facetrace_cli.server:app",
         help="ASGI application path passed to uvicorn",
     )
     serve_parser.set_defaults(func=handle_serve)

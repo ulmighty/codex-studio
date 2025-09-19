@@ -8,12 +8,12 @@
 
 ## Primary Files and Directories
 - `apps/cli/` – CLI entrypoints, orchestration logic, and environment bootstrap scripts.
-- `configs/pipeline.yaml` – reference only for stage ordering and asset paths; coordinate updates with API team.
+- `projects/FacialRecog/configs/pipeline.yaml` – reference only for stage ordering and asset paths; coordinate updates with API team.
 - `tests/cli/` – regression tests covering dry-run, full-run, and failure reporting scenarios.
 - `docs/cli.md` – operator instructions for offline execution (final polishing delegated to DOCS lane).
 
 ## Acceptance Checks
-- `python -m apps.cli run --sample-config configs/pipeline.yaml` completes using fixture media and reports deterministic run IDs.
+- `python -m projects.FacialRecog.apps.facetrace_cli.cli run --sample-config projects/FacialRecog/configs/pipeline.yaml` completes using fixture media and reports deterministic run IDs.
 - Dry-run mode produces plan output without executing heavy inference.
 - Error scenarios bubble exit codes documented in README, with no partial artifacts left behind.
 - `ARTIFACTS.md` captures CLI commands, environment variables, and log retention policies.

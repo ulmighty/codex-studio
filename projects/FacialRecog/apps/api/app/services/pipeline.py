@@ -39,7 +39,7 @@ class PipelineSettings:
 
     @classmethod
     def load(cls, config_path: Path) -> "PipelineSettings":
-        """Load settings from ``configs/pipeline.yaml`` when available."""
+        """Load settings from ``projects/FacialRecog/configs/pipeline.yaml`` when available."""
 
         config_data = cls._read_config(config_path)
         if not config_data:
@@ -281,7 +281,7 @@ class PipelineService:
     """Facade responsible for orchestrating pipeline operations."""
 
     def __init__(self, config_path: Optional[Path] = None) -> None:
-        cfg_path = config_path or Path("configs/pipeline.yaml")
+        cfg_path = config_path or Path("projects/FacialRecog/configs/pipeline.yaml")
         self.settings = PipelineSettings.load(cfg_path)
         self._index = FaceIndexStore(self.settings.index_path)
 

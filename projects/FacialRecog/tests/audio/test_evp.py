@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from packages.audio.evp import extract_evp_features
+from projects.FacialRecog.packages.audio.evp import extract_evp_features
 
 
 @pytest.fixture(scope="module")

@@ -10,7 +10,7 @@
 - `perf/` – benchmark suites, result logs, and tuning scripts.
 - `perf/reports/` – markdown/JSON summaries for each release.
 - `scripts/perf/` – reusable profiling command wrappers.
-- `configs/pipeline.yaml` – reference only for runtime settings; propose adjustments via config PRs.
+- `projects/FacialRecog/configs/pipeline.yaml` – reference only for runtime settings; propose adjustments via config PRs.
 
 ## Acceptance Checks
 - Baseline benchmark script (`scripts/perf/run.sh`) executes end-to-end pipeline using fixture media offline.

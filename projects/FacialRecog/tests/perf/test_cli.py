@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from perf import cli
+from projects.FacialRecog.packages.perf import cli
 
 
 def test_cli_dry_run(capsys):

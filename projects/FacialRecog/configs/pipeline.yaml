@@ -1,0 +1,20 @@
+# Placeholder pipeline configuration for the FacialRecog project.
+# Populate this file with environment-specific paths and deterministic seeds.
+ingest:
+  frame_extraction:
+    fps: 1
+    extensions:
+      - ".mp4"
+      - ".mov"
+      - ".mkv"
+  audio:
+    format: "wav"
+audio:
+  transcription:
+    backend: "whisper"
+    model: "base"
+    sample_rate: 16000
+vision:
+  faces:
+    embedding_dim: 128
+    index_store: "var/index/faces.json"
