@@ -23,6 +23,6 @@ Each lane ships as an isolated PR merged through the Merge Queue using squash me
 
 ## Blocking Rules
 - PR-3 must not merge before VISION_PKG and AUDIO_PKG provide stable embedding schemas.
-- BACKEND_API and CLI_ORCH (PR-4/PR-5) share contracts; coordinate to avoid race conditions in `configs/pipeline.yaml`.
+- BACKEND_API and CLI_ORCH (PR-4/PR-5) share contracts; coordinate to avoid race conditions in `projects/FacialRecog/configs/pipeline.yaml`.
 - WEB_UI waits for BACKEND_API endpoints to stabilize; security/perf/doc lanes execute after core functionality is in place.
 - Merge Queue enforces sequential processing; ensure each PR sets `merge_method: squash` via queue entry.

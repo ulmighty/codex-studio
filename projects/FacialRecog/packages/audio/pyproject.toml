@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=67"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "facialrecog-audio"
+version = "0.1.0"
+description = "Audio processing utilities for the FacialRecog pipeline."
+requires-python = ">=3.10"
+dependencies = [
+  "librosa>=0.10,<0.11",
+  "Resemblyzer>=0.1.3,<0.2",
+  "openai-whisper>=20231117",
+  "soundfile>=0.12",
+]
+
+[tool.setuptools]
+packages = ["projects.FacialRecog.packages.audio"]
+
+[tool.setuptools.package-dir]
+"projects.FacialRecog.packages.audio" = "."

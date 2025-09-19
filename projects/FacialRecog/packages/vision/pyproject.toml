@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=67"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "facialrecog-vision"
+version = "0.1.0"
+description = "Vision toolkit components for the FacialRecog pipeline."
+requires-python = ">=3.10"
+
+[tool.setuptools]
+packages = ["projects.FacialRecog.packages.vision"]
+
+[tool.setuptools.package-dir]
+"projects.FacialRecog.packages.vision" = "."

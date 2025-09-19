@@ -99,7 +99,7 @@ class YoloV8Detector:
 
     Example
     -------
-    >>> from packages.vision.detectors import YoloV8Detector
+    >>> from projects.FacialRecog.packages.vision.detectors import YoloV8Detector
     >>> detector = YoloV8Detector("yolov8n.pt")
     >>> dummy = [np.zeros((640, 640, 3), dtype=np.uint8)]  # doctest: +SKIP
     >>> results = detector.detect(dummy)  # doctest: +SKIP

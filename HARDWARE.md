@@ -48,7 +48,7 @@ FaceTrace processes high-resolution video, multichannel audio, and large vector 
 - Snapshot `indexes/faiss` after every release and mirror the snapshots to an encrypted offline vault.
 
 ## Monitoring Hooks
-- Connect `apps/api/app/services/device_manager.py` to vendor-specific telemetry (NVIDIA SMI, lm-sensors) and export metrics to the QC Guardrail dashboard.
+- Connect `projects/FacialRecog/apps/api/app/services/device_manager.py` to vendor-specific telemetry (NVIDIA SMI, lm-sensors) and export metrics to the QC Guardrail dashboard.
 - Trigger alarms when GPU utilisation exceeds 95% for >10 minutes or when NVMe temperature surpasses vendor guidelines (typically 70°C).
 
 ## Scaling Strategies

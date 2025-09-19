@@ -15,7 +15,7 @@ This guide covers the most common failure modes observed while operating the Fac
 **Symptoms:** CLI run halts with `FileNotFoundError` pointing at `models/` paths, or Whisper initialisation fails.
 
 **Resolution:**
-1. Confirm the model filenames match those referenced in `configs/pipeline.yaml`.
+1. Confirm the model filenames match those referenced in `projects/FacialRecog/configs/pipeline.yaml`.
 2. Validate SHA256 hashes against the values logged in `prompts/lanes/AUDIO_PKG/ARTIFACTS.md` and `prompts/lanes/VISION_PKG/ARTIFACTS.md`.
 3. Check file permissions; the orchestrator requires read access for the service account running the pipeline.
 4. After staging models, restart the CLI or backend process to force a fresh load.
@@ -33,7 +33,7 @@ This guide covers the most common failure modes observed while operating the Fac
 **Symptoms:** Repeat runs generate different hashes or embeddings.
 
 **Resolution:**
-1. Confirm pipeline seeds in `configs/pipeline.yaml` are fixed integers and not regenerated on each run.
+1. Confirm pipeline seeds in `projects/FacialRecog/configs/pipeline.yaml` are fixed integers and not regenerated on each run.
 2. Check that CUDA/cuDNN determinism flags are enabled (set `CUDA_LAUNCH_BLOCKING=1` and `CUBLAS_WORKSPACE_CONFIG=:16:8`).
 3. Ensure no model weights or fixtures changed between runs; compare commit hashes and `ARTIFACTS.md` entries.
 4. If hardware changed, rebaseline benchmarks and document the new fingerprints.
@@ -42,7 +42,7 @@ This guide covers the most common failure modes observed while operating the Fac
 **Symptoms:** Inference fails with CUDA OOM errors.
 
 **Resolution:**
-1. Reduce batch size in `configs/pipeline.yaml` for the offending stage (`vision.batch_size`, `audio.transcription.batch_size`).
+1. Reduce batch size in `projects/FacialRecog/configs/pipeline.yaml` for the offending stage (`vision.batch_size`, `audio.transcription.batch_size`).
 2. Switch Whisper to a smaller model or pin the transcription stage to a dedicated GPU.
 3. Confirm no extraneous processes are consuming VRAM (inspect `nvidia-smi`).
 4. Review `HARDWARE.md` to ensure the node meets minimum VRAM requirements.
@@ -60,7 +60,7 @@ This guide covers the most common failure modes observed while operating the Fac
 **Symptoms:** `/healthz` returns 500 or `uvicorn` crashes on start.
 
 **Resolution:**
-1. Inspect logs for missing environment variables; supply defaults via `.env.offline` and load them in `apps/api/main.py`.
+1. Inspect logs for missing environment variables; supply defaults via `.env.offline` and load them in `projects/FacialRecog/apps/api/app/main.py`.
 2. Ensure FAISS shards and model paths referenced in configuration exist.
 3. Verify database paths or queue directories are writable by the API process.
 4. Restart the service after applying fixes and rerun targeted tests from `tests/api/`.

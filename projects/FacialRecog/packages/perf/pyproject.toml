@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=67"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "facialrecog-perf"
+version = "0.1.0"
+description = "Synthetic performance benchmarking utilities for FacialRecog."
+requires-python = ">=3.10"
+
+[tool.setuptools]
+packages = ["projects.FacialRecog.packages.perf"]
+
+[tool.setuptools.package-dir]
+"projects.FacialRecog.packages.perf" = "."

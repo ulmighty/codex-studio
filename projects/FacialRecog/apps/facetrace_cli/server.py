@@ -16,7 +16,9 @@ async def app(scope: Dict[str, Any], receive, send) -> None:  # type: ignore[ove
     """
 
     if scope.get("type") != "http":
-        raise RuntimeError("facetrace_cli.server.app only handles HTTP requests")
+        raise RuntimeError(
+            "projects.FacialRecog.apps.facetrace_cli.server.app only handles HTTP requests"
+        )
 
     await receive()  # Drain the initial request event.
 

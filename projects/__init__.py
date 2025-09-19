@@ -1,0 +1,1 @@
+"""Codex Studio project namespace."""

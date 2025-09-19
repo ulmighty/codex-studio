@@ -20,7 +20,9 @@ def create_app() -> FastAPI:
         version="0.1.0",
     )
 
-    config_path = Path(os.getenv("PIPELINE_CONFIG", "configs/pipeline.yaml"))
+    config_path = Path(
+        os.getenv("PIPELINE_CONFIG", "projects/FacialRecog/configs/pipeline.yaml")
+    )
     app.state.pipeline_service = PipelineService(config_path=config_path)
 
     app.include_router(ingest.router)

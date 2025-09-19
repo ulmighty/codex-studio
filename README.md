@@ -9,9 +9,9 @@ FaceTrace is an offline media-forensics stack that unifies vision, audio, indexi
 - Document every lane deliverable in the corresponding `ARTIFACTS.md` file so QC can audit and reproduce the stack.
 
 ## Repository Layout
-- `apps/` – application entry points (CLI orchestrator, FastAPI backend, Next.js web UI).
-- `packages/` – reusable inference and indexing libraries for the vision, audio, and indexer lanes.
-- `tests/` – shared fixtures and integration smoke tests owned by the TESTS_QA lane.
+- `projects/FacialRecog/apps/` – application entry points (CLI orchestrator, FastAPI backend, Next.js web UI).
+- `projects/FacialRecog/packages/` – reusable inference and indexing libraries for the vision, audio, and perf lanes.
+- `projects/FacialRecog/tests/` – shared fixtures and integration smoke tests owned by the TESTS_QA lane.
 - `prompts/` – lane briefs, merge plan, and artifact ledgers that drive the roadmap.
 - `scripts/` – repository automation, including structure verification and future perf/security tooling.
 - `docs/` – canonical operator and auditor documentation (populated as the DOCS lane lands).
@@ -35,17 +35,17 @@ FaceTrace is an offline media-forensics stack that unifies vision, audio, indexi
    popd
    ```
 4. **Stage local models** – download approved model binaries on an air-gapped machine, checksum them, and copy them into `models/` as documented in [Model Placement](#model-placement).
-5. **Seed configuration** – duplicate `configs/pipeline.example.yaml` to `configs/pipeline.yaml`, then update model paths, deterministic seeds, and hardware affinities to match your environment. Commit the template only; never push secrets or proprietary media.
+5. **Seed configuration** – duplicate `projects/FacialRecog/configs/pipeline.yaml` to match your environment, then update model paths, deterministic seeds, and hardware affinities to reflect your offline workspace. Commit the template only; never push secrets or proprietary media.
 6. **Execute the pipeline** – trigger the orchestrator CLI, then bring up the API and UI for validation:
    ```bash
    # Run the deterministic end-to-end sweep with fixture media
-   python -m apps.cli run --sample-config configs/pipeline.yaml
+   python -m projects.FacialRecog.apps.facetrace_cli.cli run --sample-config projects/FacialRecog/configs/pipeline.yaml
 
    # Launch the backend (FastAPI)
-   uvicorn apps.api.main:app --host 0.0.0.0 --port 8000
+   uvicorn projects.FacialRecog.apps.api.app.main:app --host 0.0.0.0 --port 8000
 
    # Start the offline web client in another shell
-   pushd apps/web
+   pushd projects/FacialRecog/apps/webui
    npm run dev -- --offline
    popd
    ```
@@ -56,7 +56,7 @@ FaceTrace is an offline media-forensics stack that unifies vision, audio, indexi
 > **Note:** All package managers must resolve from pre-seeded mirrors or local caches. Online installs violate the offline charter and will be rejected during QC.
 
 ## Model Placement
-FaceTrace ships without heavy model binaries. Operators are responsible for staging validated artifacts in the local filesystem referenced by `configs/pipeline.yaml`.
+FaceTrace ships without heavy model binaries. Operators are responsible for staging validated artifacts in the local filesystem referenced by `projects/FacialRecog/configs/pipeline.yaml`.
 
 | Model | Expected Location | Notes |
 | --- | --- | --- |
@@ -67,7 +67,7 @@ FaceTrace ships without heavy model binaries. Operators are responsible for stag
 | FAISS shards | `indexes/faiss/*.index` | Store in encrypted volumes when handling sensitive cases; reference them in `INDEXER_PKG` configs. |
 
 1. Generate checksums on the staging machine (`shasum -a 256 <file>`).
-2. Update `configs/pipeline.yaml` to reference absolute paths or repo-relative paths under `models/`.
+2. Update `projects/FacialRecog/configs/pipeline.yaml` to reference absolute paths or repo-relative paths under `models/`.
 3. Record the checksum, provenance, and seed pairing in the relevant `ARTIFACTS.md` entry.
 4. Do **not** commit model binaries to the repository unless directed to use Git LFS for synthetic fixtures.
 
