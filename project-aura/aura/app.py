@@ -4,6 +4,7 @@ from typing import Callable, Dict
 
 from .core import config as config_module
 from .core.command_bus import CommandBus
+from .core.provenance import snapshot_versions
 from .providers.appaware.win32_foreground import Win32ForegroundProvider
 from .providers.bodytracking.kinect_v2 import KinectV2Provider
 from .providers.gaze.kinect_headpose import KinectHeadPoseProvider
@@ -39,6 +40,7 @@ class AuraApp:
 
     def __init__(self) -> None:
         self.config = config_module.load_config()
+        snapshot_versions(self.config)
         self.bus = CommandBus()
         self.providers: Dict[str, object] = {}
 
