@@ -1,12 +1,38 @@
 import fs from 'fs';
 import path from 'path';
 
-const BASE = '/workspace/.nexusforge';
+const BASE = path.resolve('/workspace/.nexusforge');
+
+function assertWithinBase(target: string) {
+  const relative = path.relative(BASE, target);
+  if (relative && (relative.startsWith('..') || path.isAbsolute(relative))) {
+    throw new Error('bad path');
+  }
+}
+
+function assertNoSymlinkEscape(target: string) {
+  const relative = path.relative(BASE, target);
+  if (!relative) return;
+  const segments = relative.split(path.sep).filter(Boolean);
+  let current = BASE;
+  for (const segment of segments) {
+    current = path.join(current, segment);
+    if (fs.existsSync(current)) {
+      const real = fs.realpathSync(current);
+      assertWithinBase(real);
+    }
+  }
+}
+
+function enforcePathSafety(target: string) {
+  assertWithinBase(target);
+  assertNoSymlinkEscape(target);
+}
 
 export function safeJoin(...segs: string[]) {
-  const p = path.join(BASE, ...segs);
-  if (!p.startsWith(BASE)) throw new Error('bad path');
-  return p;
+  const resolved = path.resolve(BASE, ...segs);
+  enforcePathSafety(resolved);
+  return resolved;
 }
 
 export async function readText(rel: string) {
@@ -55,6 +81,15 @@ export function tailStream(rel: string) {
     start(controller) {
       const send = (line: string) => controller.enqueue(encoder.encode(sseFormat(line)));
       const readNew = () => {
+        try {
+          const real = fs.realpathSync(file);
+          enforcePathSafety(real);
+        } catch (error) {
+          controller.error(error);
+          watcher?.close();
+          clearInterval(timer);
+          return;
+        }
         fs.readFile(file, 'utf8', (err, data) => {
           if (err) return;
           const slice = data.slice(pos);
