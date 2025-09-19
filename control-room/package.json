@@ -5,15 +5,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest"
+    "test": "jest",
+    "e2e": "playwright test"
   },
   "dependencies": {
     "next": "*",
     "react": "*",
     "react-dom": "*",
-    "tailwindcss": "*",
-    "postcss": "*",
-    "autoprefixer": "*"
+    "tailwindcss": "^3.4.13",
+    "postcss": "^8.4.35",
+    "autoprefixer": "^10.4.19"
   },
   "devDependencies": {
     "typescript": "*",
@@ -23,7 +24,8 @@
     "@types/node": "*",
     "@types/react": "*",
     "@types/react-dom": "*",
-    "@types/jest": "*"
+    "@types/jest": "*",
+    "@playwright/test": "^1.39.0"
   },
   "jest": {
     "transform": {"^.+\\.(t|j)sx?$": "ts-jest"},

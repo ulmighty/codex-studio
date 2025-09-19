@@ -1,10 +1,59 @@
 from __future__ import annotations
 
 import logging
+import os
 from pathlib import Path
-from typing import List
+from typing import List, TYPE_CHECKING
 
-from PyQt6.QtWidgets import QApplication, QMainWindow, QTabWidget
+if TYPE_CHECKING:  # pragma: no cover - for static typing only
+    from PyQt6.QtWidgets import QApplication, QMainWindow, QTabWidget
+else:  # pragma: no cover - executed during runtime
+    if os.environ.get("RUNNING_TESTS") == "1":
+        try:
+            from PyQt6.QtWidgets import QApplication, QMainWindow, QTabWidget  # type: ignore
+        except Exception:
+            class QApplication:  # type: ignore
+                """Minimal QApplication stub for testing."""
+
+                _instance: "QApplication | None" = None
+
+                def __init__(self, *_args, **_kwargs) -> None:
+                    QApplication._instance = self
+
+                @classmethod
+                def instance(cls) -> "QApplication | None":
+                    return cls._instance
+
+                def exec(self) -> None:
+                    return None
+
+            class QMainWindow:  # type: ignore
+                def __init__(self, *_args, **_kwargs) -> None:
+                    self._central_widget = None
+
+                def setWindowTitle(self, *_args, **_kwargs) -> None:
+                    return None
+
+                def resize(self, *_args, **_kwargs) -> None:
+                    return None
+
+                def setCentralWidget(self, widget) -> None:  # type: ignore[override]
+                    self._central_widget = widget
+
+                def show(self) -> None:  # pragma: no cover - trivial
+                    return None
+
+                def closeEvent(self, _event) -> None:  # pragma: no cover - trivial
+                    return None
+
+            class QTabWidget:  # type: ignore
+                def __init__(self) -> None:
+                    self._tabs: list = []
+
+                def addTab(self, widget, name: str) -> None:
+                    self._tabs.append((widget, name))
+    else:  # pragma: no cover - requires PyQt runtime
+        from PyQt6.QtWidgets import QApplication, QMainWindow, QTabWidget
 
 from .interfaces import PluginInterface
 from .plugin_loader import load_plugins
