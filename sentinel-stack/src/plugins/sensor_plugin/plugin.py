@@ -1,10 +1,41 @@
 from __future__ import annotations
 
 import os
+from typing import TYPE_CHECKING
+
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 os.environ.setdefault("XDG_RUNTIME_DIR", "/tmp")
 
-from PyQt6.QtWidgets import QApplication, QLabel
+if TYPE_CHECKING:
+    from PyQt6.QtWidgets import QApplication, QLabel
+else:  # pragma: no cover - executed in runtime environments
+    if os.environ.get("RUNNING_TESTS") == "1":
+        try:
+            from PyQt6.QtWidgets import QApplication, QLabel  # type: ignore
+        except Exception:
+            class QApplication:  # type: ignore
+                """Minimal QApplication stub for tests."""
+
+                _instance: "QApplication | None" = None
+
+                def __init__(self, *_args, **_kwargs) -> None:
+                    QApplication._instance = self
+
+                @classmethod
+                def instance(cls) -> "QApplication | None":
+                    return cls._instance
+
+                def exec(self) -> None:  # pragma: no cover - trivial
+                    return None
+
+            class QLabel:  # type: ignore
+                def __init__(self, text: str = "") -> None:
+                    self._text = text
+
+                def setText(self, text: str) -> None:
+                    self._text = text
+    else:  # pragma: no cover - requires PyQt runtime
+        from PyQt6.QtWidgets import QApplication, QLabel
 
 from core.interfaces import PluginInterface
 
